@@ -40,7 +40,7 @@ class ViewController: UIViewController, WCSessionDelegate {
         var dat = ""
         for a in data {
             dat = dat + String(a[0]) + "," + String(a[1]) + "," + String(a[2]) + "\n";
-            //NSLog("x: " + String(a[0]))
+            NSLog("x: " + String(a[0]))
         }
         //NSLog("Got something on phone: " + (message["something"] as! String))
         //replyHandler(["reply": "123456789"])

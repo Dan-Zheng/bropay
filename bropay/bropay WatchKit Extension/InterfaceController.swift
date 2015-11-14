@@ -72,6 +72,7 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
     }
     
     func sendToPhone(key: String, message: AnyObject) {
+        NSLog("Sending to phone")
         // Grab our phone session we activated earlier
         if let ses = session {
             // If we can reach the phone
@@ -89,6 +90,7 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
             } else {
                 NSLog("Well, we couldn't reach the iPhone");
             }
+            NSLog("Sent to phone")
         }
     }
     
