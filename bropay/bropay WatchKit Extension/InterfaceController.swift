@@ -8,10 +8,21 @@
 
 import WatchKit
 import Foundation
+import CoreMotion
+import WatchConnectivity
 
 
-class InterfaceController: WKInterfaceController {
+class InterfaceController: WKInterfaceController, WCSessionDelegate {
 
+    // Session to communicate with phone
+    var session : WCSession!
+    
+    // Cache to hold accelerometer data before sending to phone
+    var data = Array<Array<Double>>()
+    
+    // Manager to get accelerometer data.
+    let motionManager = CMMotionManager()
+    
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
         
@@ -21,11 +32,69 @@ class InterfaceController: WKInterfaceController {
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
+        
+        // Setup session so we can send stuff to the phone
+        if (WCSession.isSupported()) {
+            session = WCSession.defaultSession()
+            session.delegate = self
+            session.activateSession()
+        }
+        
+        // Start accelerometer for collecting data while app is open.
+        if (motionManager.accelerometerAvailable) {
+            // Set the interval to get data
+            motionManager.accelerometerUpdateInterval = 0.1
+            motionManager.startAccelerometerUpdatesToQueue(NSOperationQueue.currentQueue()!) { accelerometerData, error in
+                // Store data from the accelerometer
+                self.data.append([accelerometerData!.acceleration.x, accelerometerData!.acceleration.y, accelerometerData!.acceleration.z])
+                
+                // Log to make sure we are doing stuff
+                if (self.data.count % 50 == 0) { NSLog(String(self.data.count)) }
+                
+                // Send stuff to phone once we have a bunch of data
+                if (self.data.count > 400) {
+                    self.sendToPhone("data", message: self.data)
+                    self.data = []
+                }
+            }
+        }
     }
 
     override func didDeactivate() {
+        // Turn off acelerometer when we go into background
+        if (motionManager.accelerometerAvailable) {
+            motionManager.stopAccelerometerUpdates()
+            NSLog("stopped accelerometer")
+        }
+        
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
+    }
+    
+    func sendToPhone(key: String, message: AnyObject) {
+        // Grab our phone session we activated earlier
+        if let ses = session {
+            // If we can reach the phone
+            if (WCSession.defaultSession().reachable) {
+                // Make a key value pair with our cached data.
+                let applicationData = [key:message]
+                // Send it to the phone
+                ses.sendMessage(applicationData, replyHandler: {(replyMessage: [String : AnyObject]) -> Void in
+                        // Grab a from the phone right here.
+                        NSLog("Got reply" + (replyMessage["reply"] as! String))
+                    }, errorHandler: {(error ) -> Void in
+                        // In case we get an error from the phone
+                        NSLog("Error :( " + error.localizedDescription)
+                })
+            } else {
+                NSLog("Well, we couldn't reach the iPhone");
+            }
+        }
+    }
+    
+    func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
+        
+        NSLog("Got something on watch: " + (message["something"] as! String))
     }
 
 }
