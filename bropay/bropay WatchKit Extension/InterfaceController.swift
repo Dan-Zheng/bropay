@@ -11,6 +11,11 @@ import Foundation
 import CoreMotion
 import WatchConnectivity
 
+extension CMSensorDataList: SequenceType {
+    public func generate() -> NSFastGenerator {
+        return NSFastGenerator(self)
+    }
+}
 
 class InterfaceController: WKInterfaceController, WCSessionDelegate {
 
@@ -19,14 +24,24 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
     
     // Cache to hold accelerometer data before sending to phone
     var data = Array<Array<Double>>()
+    var recordData = Array<Array<Double>>()
     
-    // Manager to get accelerometer data.
+    // Manager to get accelerometer data, used while app is open.
     let motionManager = CMMotionManager()
+    
+    // Recorder for accelerometer data, used while app is not open.
+    let sensorRecorder = CMSensorRecorder()
+    
+    var lastStart = NSDate()
     
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
         
         // Configure interface objects here.
+        
+        if CMSensorRecorder.isAccelerometerRecordingAvailable() {
+            sensorRecorder.recordAccelerometerForDuration(20 * 60)  // Record for 20 minutes
+        }
     }
 
     override func willActivate() {
@@ -40,7 +55,30 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
             session.activateSession()
         }
         
-        // Start accelerometer for collecting data while app is open.
+        if let accelData = sensorRecorder.accelerometerDataFromDate(lastStart, toDate: NSDate()) {
+        //if (accelData != nil) {
+            for element in accelData {
+                let lastElement = element as! CMRecordedAccelerometerData
+                self.recordData.append([lastElement.acceleration.x, lastElement.acceleration.y, lastElement.acceleration.z])
+            }
+            
+            // Log to make sure we are doing stuff
+            if (self.recordData.count % 50 == 0) { NSLog(String(self.recordData.count)) }
+            
+            // Send stuff to phone once we have a bunch of data
+            if (self.recordData.count > 400) {
+                self.sendToPhone("data", message: self.recordData)
+                self.recordData = []
+            }
+            
+            /*
+            for (index, data) in sensorData.enumerate() {
+                print(index, data)
+            }
+            */
+        }
+        
+        // Start accelerometer for collecting data while app is open using motionManager.
         if (motionManager.accelerometerAvailable) {
             // Set the interval to get data
             motionManager.accelerometerUpdateInterval = 0.1
