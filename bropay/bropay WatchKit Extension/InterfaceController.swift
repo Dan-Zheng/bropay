@@ -101,7 +101,7 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
                 if (self.data.count % 50 == 0) { NSLog(String(self.data.count)) }
                 
                 // Send stuff to phone once we have a bunch of data
-                if (self.data.count > 400) {
+                if (self.data.count > 100) {
                     self.sendToPhone("data", message: self.data)
                     self.data = []
                 }
