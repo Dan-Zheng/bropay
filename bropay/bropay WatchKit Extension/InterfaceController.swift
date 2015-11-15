@@ -39,13 +39,13 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
         
         // Configure interface objects here.
         
-        NSLog("Should start recording");
+        /*NSLog("Should start recording");
         if CMSensorRecorder.isAccelerometerRecordingAvailable() {
             lastStart = NSDate()
             
             sensorRecorder.recordAccelerometerForDuration(20 * 60)  // Record for 20 minutes
             NSLog("started recording");
-        }
+        }*/
     }
 
     override func willActivate() {
@@ -59,7 +59,7 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
             session.activateSession()
         }
         
-        NSLog("Will Activate called");
+        /*NSLog("Will Activate called");
         
         NSLog("lastStart: " + String(lastStart) + " now: " + String(NSDate()));
         if let accelData = sensorRecorder.accelerometerDataFromDate(lastStart, toDate: NSDate()) {
@@ -87,10 +87,10 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
             */
         } else {
             NSLog("accelData is nil");
-        }
+        }*/
         
         // Start accelerometer for collecting data while app is open using motionManager.
-        /*if (motionManager.accelerometerAvailable) {
+        if (motionManager.accelerometerAvailable) {
             // Set the interval to get data
             motionManager.accelerometerUpdateInterval = 0.1
             motionManager.startAccelerometerUpdatesToQueue(NSOperationQueue.currentQueue()!) { accelerometerData, error in
@@ -106,15 +106,15 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
                     self.data = []
                 }
             }
-        }*/
+        }
     }
 
     override func didDeactivate() {
         // Turn off acelerometer when we go into background
-        /*if (motionManager.accelerometerAvailable) {
+        if (motionManager.accelerometerAvailable) {
             motionManager.stopAccelerometerUpdates()
             NSLog("stopped accelerometer")
-        }*/
+        }
         NSLog("Deactivated");
         
         // This method is called when watch view controller is no longer visible

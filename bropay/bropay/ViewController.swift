@@ -59,6 +59,7 @@ class ViewController: UIViewController, WCSessionDelegate {
         if let dir : NSString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
             let path = dir.stringByAppendingPathComponent(file);
             NSLog(path)
+            replyHandler(["reply" : path])
             
             // Write to file
             do {
