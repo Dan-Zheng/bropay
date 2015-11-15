@@ -21,6 +21,7 @@
 		66B9186E1BF7987E006D5B01 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B9186D1BF7987E006D5B01 /* NotificationController.swift */; };
 		66B918701BF7987E006D5B01 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B9186F1BF7987E006D5B01 /* ComplicationController.swift */; };
 		66B918721BF7987E006D5B01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66B918711BF7987E006D5B01 /* Assets.xcassets */; };
+		6D3AA2D9A403793A7A2131EE /* libPods-bropay.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21EAED873986F78BA889ABB0 /* libPods-bropay.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		21EAED873986F78BA889ABB0 /* libPods-bropay.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-bropay.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		66B918411BF7987E006D5B01 /* bropay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bropay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66B918441BF7987E006D5B01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		66B918461BF7987E006D5B01 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +87,9 @@
 		66B9186F1BF7987E006D5B01 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
 		66B918711BF7987E006D5B01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		66B918731BF7987E006D5B01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		66B975021BF82CFC003FB7F7 /* bropay-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "bropay-Bridging-Header.h"; sourceTree = "<group>"; };
+		C5B31C020FB8B8426B788FE3 /* Pods-bropay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bropay.debug.xcconfig"; path = "Pods/Target Support Files/Pods-bropay/Pods-bropay.debug.xcconfig"; sourceTree = "<group>"; };
+		D92AE7D2CF1778834C2162DF /* Pods-bropay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bropay.release.xcconfig"; path = "Pods/Target Support Files/Pods-bropay/Pods-bropay.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D3AA2D9A403793A7A2131EE /* libPods-bropay.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +111,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0822EF987B688A54397A5E3E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C5B31C020FB8B8426B788FE3 /* Pods-bropay.debug.xcconfig */,
+				D92AE7D2CF1778834C2162DF /* Pods-bropay.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		3AFBFFAEA5432BDD8CEE7D97 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				21EAED873986F78BA889ABB0 /* libPods-bropay.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		66B918381BF7987E006D5B01 = {
 			isa = PBXGroup;
 			children = (
@@ -112,6 +135,8 @@
 				66B918571BF7987E006D5B01 /* bropay WatchKit App */,
 				66B918661BF7987E006D5B01 /* bropay WatchKit Extension */,
 				66B918421BF7987E006D5B01 /* Products */,
+				0822EF987B688A54397A5E3E /* Pods */,
+				3AFBFFAEA5432BDD8CEE7D97 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,6 +153,7 @@
 		66B918431BF7987E006D5B01 /* bropay */ = {
 			isa = PBXGroup;
 			children = (
+				66B975021BF82CFC003FB7F7 /* bropay-Bridging-Header.h */,
 				66B918441BF7987E006D5B01 /* AppDelegate.swift */,
 				66B918461BF7987E006D5B01 /* ViewController.swift */,
 				66B918481BF7987E006D5B01 /* Main.storyboard */,
@@ -177,10 +203,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 66B9187E1BF7987E006D5B01 /* Build configuration list for PBXNativeTarget "bropay" */;
 			buildPhases = (
+				DAE0562057D44E71D3BC5059 /* Check Pods Manifest.lock */,
 				66B9183D1BF7987E006D5B01 /* Sources */,
 				66B9183E1BF7987E006D5B01 /* Frameworks */,
 				66B9183F1BF7987E006D5B01 /* Resources */,
 				66B9187D1BF7987E006D5B01 /* Embed Watch Content */,
+				2E1BBAFB682B503BCB16D465 /* Embed Pods Frameworks */,
+				85BF22E690AC050A974D2E9A /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -299,6 +328,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2E1BBAFB682B503BCB16D465 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-bropay/Pods-bropay-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		85BF22E690AC050A974D2E9A /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-bropay/Pods-bropay-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DAE0562057D44E71D3BC5059 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		66B9183D1BF7987E006D5B01 /* Sources */ = {
@@ -521,6 +598,7 @@
 		};
 		66B9187F1BF7987E006D5B01 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C5B31C020FB8B8426B788FE3 /* Pods-bropay.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -530,11 +608,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ninja.bro.bropay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/Adam/Desktop/Hackathon/bropay/bropay/bropay/bropay-Bridging-Header.h";
 			};
 			name = Debug;
 		};
 		66B918801BF7987E006D5B01 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D92AE7D2CF1778834C2162DF /* Pods-bropay.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -544,6 +624,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ninja.bro.bropay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/Adam/Desktop/Hackathon/bropay/bropay/bropay/bropay-Bridging-Header.h";
 			};
 			name = Release;
 		};

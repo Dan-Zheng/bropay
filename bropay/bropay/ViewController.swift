@@ -24,6 +24,18 @@ class ViewController: UIViewController, WCSessionDelegate {
             session.delegate = self;
             session.activateSession()
         }
+        
+        Venmo.sharedInstance().defaultTransactionMethod = VENTransactionMethod.API
+        if (!Venmo.sharedInstance().isSessionValid()) {
+            Venmo.sharedInstance().requestPermissions(["make_payments", "access_profile"], withCompletionHandler: { (Bool success, NSError error) -> Void in
+                if (success) {
+                    NSLog("got permission")
+                }
+                else {
+                    NSLog("Didn't get permission")
+                }
+            })
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,6 +56,21 @@ class ViewController: UIViewController, WCSessionDelegate {
         }
         //NSLog("Got something on phone: " + (message["something"] as! String))
         //replyHandler(["reply": "123456789"])
+    }
+    
+    func sendPayment() {
+        let recipient: String = "Jamindude22@mac.com"
+        let amt: UInt = 1
+        let message: String = "yo"
+        Venmo.sharedInstance().sendRequestTo(recipient, amount: amt, note: message, audience: VENTransactionAudience.Private, completionHandler: { (VENTransaction transaction, Bool success, NSError error) -> Void in
+            
+            if (success) {
+                NSLog("sent request for " + String(amt) + " to " + recipient)
+            }
+            else {
+                NSLog(error.localizedDescription)
+            }
+        })
     }
 }
 
