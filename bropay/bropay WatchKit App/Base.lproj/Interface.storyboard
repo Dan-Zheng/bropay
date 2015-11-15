@@ -10,9 +10,17 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="bropay_WatchKit_App" customModuleProvider="target">
                     <items>
-                        <button width="35" alignment="left" title="Button" id="G7y-s4-lmR"/>
-                        <label alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="Pae-7R-oHK"/>
+                        <group width="1" alignment="center" verticalAlignment="center" id="hdm-ml-ABZ">
+                            <items>
+                                <button width="25" height="25" alignment="right" verticalAlignment="center" title="+" id="G7y-s4-lmR"/>
+                                <picker width="65" height="25" alignment="center" id="dPg-zB-0wV" userLabel="amountOfMoney"/>
+                                <button width="25" height="25" alignment="left" verticalAlignment="center" title="-" id="bPG-XF-lLk"/>
+                            </items>
+                        </group>
                     </items>
+                    <connections>
+                        <outlet property="amountOfMoney" destination="dPg-zB-0wV" id="haf-m1-pFK"/>
+                    </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="220" y="345"/>

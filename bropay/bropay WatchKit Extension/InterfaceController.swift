@@ -19,6 +19,8 @@ extension CMSensorDataList: SequenceType {
 
 class InterfaceController: WKInterfaceController, WCSessionDelegate {
 
+    @IBOutlet var amountOfMoney: WKInterfacePicker!
+    
     // Session to communicate with phone
     var session : WCSession!
     
@@ -33,6 +35,8 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
     let sensorRecorder = CMSensorRecorder()
     
     var lastStart = NSDate()
+    
+    
     
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)

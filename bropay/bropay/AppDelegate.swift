@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
-        Venmo.startWithAppId("3156", secret: "4t8usKKbaFDEW8mATW9H5NrZUwqasPWU", name: "bropay")
+        //Venmo.startWithAppId("3156", secret: "4t8usKKbaFDEW8mATW9H5NrZUwqasPWU", name: "bropay")
         
         return true
     }

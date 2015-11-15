@@ -24,7 +24,7 @@ class ViewController: UIViewController, WCSessionDelegate, MFMailComposeViewCont
             session.delegate = self;
             session.activateSession()
         }
-        
+        /*
         Venmo.sharedInstance().defaultTransactionMethod = VENTransactionMethod.API
         if (!Venmo.sharedInstance().isSessionValid()) {
             Venmo.sharedInstance().requestPermissions(["make_payments", "access_profile"], withCompletionHandler: { (Bool success, NSError error) -> Void in
@@ -36,6 +36,7 @@ class ViewController: UIViewController, WCSessionDelegate, MFMailComposeViewCont
                 }
             })
         }
+        */
     }
 
     override func didReceiveMemoryWarning() {
