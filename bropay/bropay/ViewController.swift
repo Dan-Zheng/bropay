@@ -10,7 +10,7 @@ import UIKit
 import WatchConnectivity
 import MessageUI
 
-class ViewController: UIViewController, WCSessionDelegate {
+class ViewController: UIViewController, WCSessionDelegate, MFMailComposeViewControllerDelegate {
     
     var session: WCSession!
 
@@ -54,6 +54,9 @@ class ViewController: UIViewController, WCSessionDelegate {
             dat = dat + String(a[0]) + "," + String(a[1]) + "," + String(a[2]) + "\n";
             NSLog("x: " + String(a[0]))
         }
+        
+        var fileManager: NSFileManager!
+        
         let file = "bropay_data.txt" // This is the file for writing
         
         if let dir : NSString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
@@ -67,6 +70,11 @@ class ViewController: UIViewController, WCSessionDelegate {
             }
             catch {/* error handling here */}
             
+            sendEmail(path)
+            do {
+                try fileManager.removeItemAtPath(path)
+            } catch {}
+            
             // Read from file
             /*
             do {
@@ -76,6 +84,24 @@ class ViewController: UIViewController, WCSessionDelegate {
         }
         //NSLog("Got something on phone: " + (message["something"] as! String))
         //replyHandler(["reply": "123456789"])
+    }
+    
+    func sendEmail(path: String) {
+        //Check to see the device can send email.
+        if( MFMailComposeViewController.canSendMail() ) {
+            
+            let mailComposer = MFMailComposeViewController()
+            mailComposer.mailComposeDelegate = self
+            
+            //Set the subject and message of the email
+            mailComposer.setSubject("Bropay Data")
+            mailComposer.setMessageBody("Test message.", isHTML: false)
+            
+            if let fileData = NSData(contentsOfFile: path) {
+                mailComposer.addAttachmentData(fileData, mimeType: "text/plain", fileName: "bropay_data.txt")
+            }
+            self.presentViewController(mailComposer, animated: true, completion: nil)
+        }
     }
     
     func sendPayment() {
