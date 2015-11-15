@@ -39,8 +39,11 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
         
         // Configure interface objects here.
         
+        NSLog("Should start recording");
         if CMSensorRecorder.isAccelerometerRecordingAvailable() {
+            lastStart = NSDate()
             sensorRecorder.recordAccelerometerForDuration(20 * 60)  // Record for 20 minutes
+            NSLog("started recording");
         }
     }
 
@@ -55,8 +58,12 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
             session.activateSession()
         }
         
+        NSLog("Will Activate called");
+        
+        NSLog("lastStart: " + String(lastStart) + " now: " + String(NSDate()));
         if let accelData = sensorRecorder.accelerometerDataFromDate(lastStart, toDate: NSDate()) {
         //if (accelData != nil) {
+            NSLog("Found sensorrecorder data");
             for element in accelData {
                 let lastElement = element as! CMRecordedAccelerometerData
                 self.recordData.append([lastElement.acceleration.x, lastElement.acceleration.y, lastElement.acceleration.z])
@@ -69,6 +76,7 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
             if (self.recordData.count > 400) {
                 self.sendToPhone("data", message: self.recordData)
                 self.recordData = []
+                lastStart = NSDate()
             }
             
             /*
@@ -76,10 +84,12 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
                 print(index, data)
             }
             */
+        } else {
+            NSLog("accelData is nil");
         }
         
         // Start accelerometer for collecting data while app is open using motionManager.
-        if (motionManager.accelerometerAvailable) {
+        /*if (motionManager.accelerometerAvailable) {
             // Set the interval to get data
             motionManager.accelerometerUpdateInterval = 0.1
             motionManager.startAccelerometerUpdatesToQueue(NSOperationQueue.currentQueue()!) { accelerometerData, error in
@@ -95,15 +105,16 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
                     self.data = []
                 }
             }
-        }
+        }*/
     }
 
     override func didDeactivate() {
         // Turn off acelerometer when we go into background
-        if (motionManager.accelerometerAvailable) {
+        /*if (motionManager.accelerometerAvailable) {
             motionManager.stopAccelerometerUpdates()
             NSLog("stopped accelerometer")
-        }
+        }*/
+        NSLog("Deactivated");
         
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
