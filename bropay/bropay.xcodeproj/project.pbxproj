@@ -608,7 +608,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ninja.bro.bropay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/Adam/Desktop/Hackathon/bropay/bropay/bropay/bropay-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "bropay/bropay-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -624,7 +624,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ninja.bro.bropay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/Adam/Desktop/Hackathon/bropay/bropay/bropay/bropay-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "bropay/bropay-Bridging-Header.h";
 			};
 			name = Release;
 		};

@@ -54,6 +54,25 @@ class ViewController: UIViewController, WCSessionDelegate {
             dat = dat + String(a[0]) + "," + String(a[1]) + "," + String(a[2]) + "\n";
             NSLog("x: " + String(a[0]))
         }
+        let file = "bropay_data.txt" // This is the file for writing
+        
+        if let dir : NSString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
+            let path = dir.stringByAppendingPathComponent(file);
+            NSLog(path)
+            
+            // Write to file
+            do {
+                try dat.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding)
+            }
+            catch {/* error handling here */}
+            
+            // Read from file
+            /*
+            do {
+                let text2 = try NSString(contentsOfFile: path, encoding: NSUTF8StringEncoding)
+            }
+            catch {/* error handling here */}*/
+        }
         //NSLog("Got something on phone: " + (message["something"] as! String))
         //replyHandler(["reply": "123456789"])
     }

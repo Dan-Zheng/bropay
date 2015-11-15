@@ -42,6 +42,7 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
         NSLog("Should start recording");
         if CMSensorRecorder.isAccelerometerRecordingAvailable() {
             lastStart = NSDate()
+            
             sensorRecorder.recordAccelerometerForDuration(20 * 60)  // Record for 20 minutes
             NSLog("started recording");
         }
