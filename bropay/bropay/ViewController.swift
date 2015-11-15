@@ -55,25 +55,36 @@ class ViewController: UIViewController, WCSessionDelegate, MFMailComposeViewCont
             NSLog("x: " + String(a[0]))
         }
         
-        var fileManager: NSFileManager!
-        
         let file = "bropay_data.txt" // This is the file for writing
         
         if let dir : NSString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
             let path = dir.stringByAppendingPathComponent(file);
             NSLog(path)
-            replyHandler(["reply" : path])
             
             // Write to file
+            var fileSize : UInt64 = 0
             do {
+                let attr : NSDictionary? = try NSFileManager.defaultManager().attributesOfItemAtPath(path)
+                if let _attr = attr {
+                    fileSize = _attr.fileSize();
+                }
+                
+                /*if let outputStream = NSOutputStream(toFileAtPath: path, append: true) {
+                    outputStream.open()
+                    outputStream.write(dat)
+                    outputStream.close()
+                } else {
+                    NSLog("Unable to open file")
+                }*/
+                
                 try dat.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding)
+                replyHandler(["reply" : String(fileSize)])
+                if fileSize > 30000 {
+                    sendEmail(path)
+                    try NSFileManager.defaultManager().removeItemAtPath(path)
+                }
             }
             catch {/* error handling here */}
-            
-            sendEmail(path)
-            do {
-                try fileManager.removeItemAtPath(path)
-            } catch {}
             
             // Read from file
             /*
